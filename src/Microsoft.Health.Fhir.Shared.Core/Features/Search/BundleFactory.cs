@@ -178,7 +178,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Search
             bundle.Entry.AddRange(entries);
             bundle.Id = _fhirRequestContextAccessor.RequestContext.CorrelationId;
             bundle.Type = type;
-            bundle.Total = result?.TotalCount;
+            bundle.Total = (int)result?.TotalCount;
             bundle.Meta = new Meta
             {
                 LastUpdated = Clock.UtcNow,

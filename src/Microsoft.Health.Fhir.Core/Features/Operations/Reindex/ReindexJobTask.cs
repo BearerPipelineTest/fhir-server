@@ -563,7 +563,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Operations.Reindex
                 if (_reindexJobRecord.QueryList.Keys.All(q => q.Status == OperationStatus.Completed))
                 {
                     // Perform a final check to make sure there are no resources left to reindex
-                    (int totalCount, List<string> resourcesTypes) = await CalculateTotalCount();
+                    (long totalCount, List<string> resourcesTypes) = await CalculateTotalCount();
                     if (totalCount != 0)
                     {
                         string message = $"{totalCount} resource(s) of the following type(s) failed to be reindexed: '{string.Join("', '", resourcesTypes)}'.";
@@ -645,7 +645,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Operations.Reindex
 
         private async Task CalculateAndSetTotalAndResourceCounts()
         {
-            int totalCount = 0;
+            long totalCount = 0;
             foreach (string resourceType in _reindexJobRecord.Resources)
             {
                 var queryForCount = new ReindexJobQueryStatus(resourceType, continuationToken: null)
@@ -672,9 +672,9 @@ namespace Microsoft.Health.Fhir.Core.Features.Operations.Reindex
             _reindexJobRecord.Count = totalCount;
         }
 
-        private async Task<(int totalCount, List<string> resourcesTypes)> CalculateTotalCount()
+        private async Task<(long totalCount, List<string> resourcesTypes)> CalculateTotalCount()
         {
-            int totalCount = 0;
+            long totalCount = 0;
             var resourcesTypes = new List<string>();
 
             foreach (string resourceType in _reindexJobRecord.Resources)

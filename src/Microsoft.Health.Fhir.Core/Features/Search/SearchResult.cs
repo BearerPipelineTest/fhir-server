@@ -38,7 +38,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Search
             SortOrder = sortOrder;
         }
 
-        public SearchResult(int totalCount, IReadOnlyList<Tuple<string, string>> unsupportedSearchParameters)
+        public SearchResult(long totalCount, IReadOnlyList<Tuple<string, string>> unsupportedSearchParameters)
         {
             EnsureArg.IsNotNull(unsupportedSearchParameters, nameof(unsupportedSearchParameters));
 
@@ -60,7 +60,7 @@ namespace Microsoft.Health.Fhir.Core.Features.Search
         /// <summary>
         /// Gets total number of documents
         /// </summary>
-        public int? TotalCount { get; set; }
+        public long? TotalCount { get; set; }
 
         /// <summary>
         /// Gets the continuation token.

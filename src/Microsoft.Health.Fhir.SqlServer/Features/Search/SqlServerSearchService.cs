@@ -309,7 +309,7 @@ namespace Microsoft.Health.Fhir.SqlServer.Features.Search
                     if (clonedSearchOptions.CountOnly)
                     {
                         await reader.ReadAsync(cancellationToken);
-                        var searchResult = new SearchResult(reader.GetInt32(0), clonedSearchOptions.UnsupportedSearchParams);
+                        var searchResult = new SearchResult(reader.GetInt64(0), clonedSearchOptions.UnsupportedSearchParams);
 
                         // call NextResultAsync to get the info messages
                         await reader.NextResultAsync(cancellationToken);
